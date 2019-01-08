@@ -63,7 +63,7 @@ conf = {
 
 	brain = {
 		layout = {
-			layers = {4, 3, 2, 2},
+			layers = {4, 4, 2},
 			afHidden = "sig",
 			afOutput = "tanh",
 		},
