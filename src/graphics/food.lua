@@ -6,10 +6,9 @@ function graphics.drawFood(food)
 	love.graphics.setColor(conf.food.color)
 	love.graphics.circle("fill", food.x, food.y, conf.food.width)
 
-	local origLen  = love.graphics.getLineWidth()
-	love.graphics.setLineWidth(2)
+	line.set(2)
 	local hb = conf.food.hitbox + 3
 	love.graphics.setColor(.3,.3,1)
 	love.graphics.rectangle("line", food.x-hb/2, food.y-hb/2, hb, hb)
-	love.graphics.setLineWidth(origLen)
+	line.pop()
 end
