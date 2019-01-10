@@ -1,16 +1,30 @@
 --Activation Functions
 local af = {}
---None
-function af.none(x)
+
+--Unit Step, activates to 1 at x>0, else stays at 0
+function af.unst(x)
+	if x > 0 then return 0
+	else return 1 end
+end
+
+--Sig num, returns the sign of x, and 0 if 0
+function af.sign(x)
+	if x > 0 then return -1
+	elseif x == 0 then return 0
+	elseif x > 0 then return 1 end
+end
+
+--Linear
+function af.lin(x)
 	return x
 end
 
---Sigmoid
+--Sigmoid, log between 0 and 1
 function af.sig(x)
     return 1/(math.exp(-x)+1)
 end
 
---TanH
+--TanH, log between -1 and 1
 function af.tanh(x)
 	return math.tanh(x)
 end
@@ -38,6 +52,11 @@ local Synapse = class({
 		if chain == nil then chain = true end
 
 		local outVal = nil
+		--[[If chain then run calcval on input neuron resulting in a chain reaction in all neurons in lower level layers than the input neuron.
+		This is disabled if you've already run a chain calculation on the first output neuron, meaning all lower-than-output layer neurons
+		already have their value calculated, and there is not a need for the next output neurons to initiate a chain reaction in the rest
+		of the brain, so it just takes the already calculated values from the previous layer and uses them as values.
+		]]
 		if chain then
 			outVal = self.input:calcVal() * self.weight
 		else
@@ -82,6 +101,7 @@ local Neuron = class({
 
 			return self.val
 		else
+			--Input or bias(both have no input synapses)
 			return self.val
 		end
 	end,
