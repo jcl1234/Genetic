@@ -5,11 +5,13 @@ ui.mouse = {}
 function ui.drawInfo()
 	local x = 10
 	local y = 10
-	local width = 205
+	local width = 150
 	local height = 85
 
-	-- love.graphics.setColor(.2,.2,.2,.5)
-	-- love.graphics.rectangle("fill", x, y, width, height)
+	if conf.ui.info.background then
+		love.graphics.setColor(.2,.2,.2,.5)
+		love.graphics.rectangle("fill", x, y, width, height)
+	end
 
 	--Info
 	love.graphics.setColor(conf.ui.info.color)
@@ -35,7 +37,7 @@ function ui.drawCretInfo(cret)
 	local heightExtra = 50
 
 	local height = 210
-	local xOffset = 350
+	local xOffset = 300
 	local yOffset = 10
 	local x = conf.window.width - xOffset
 	local y = yOffset
@@ -82,7 +84,7 @@ function ui.drawCretInfo(cret)
 	love.graphics.print("Descendants Alive: "..descendantsAlive.." ("..round((descendantsAlive+addval)/game.pop*100, 0).."%)", bInfoX, bInfoY + infoOffset*0 , 0, scale)
 	love.graphics.print("Descendants Total: "..cret.descendants, bInfoX, bInfoY + infoOffset*1, 0, scale)
 	--Cret Image
-	local xAdd = 280
+	local xAdd = 240
 	local yAdd = 10
 	local width = 1.5
 	local x, y = bInfoX+xAdd, bInfoY + yAdd
