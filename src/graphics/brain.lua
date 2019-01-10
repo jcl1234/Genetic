@@ -24,18 +24,53 @@ function ui.brain.init(brain, x, y)
 	ui.brain.width = 0
 	ui.brain.height = 0
 
-	--Create map of brain
-	local neurons = {}
-	local synapses = {}
+	local symmetrical = conf.ui.brain.symmetrical
+	local mostNeurons = 0
+
+	local posLayers = {}
+	--Initialize width and height of brain and neuron positions
 	for layerNum, layer in pairs(brain.layers) do
-		--Get neurons
+		if not posLayers[layerNum] then posLayers[layerNum] = {} end
 		for k, neuron in pairs(layer) do
 			local neuronX = ui.brain.x + (layerNum-1)*offsetX
 			local neuronY = ui.brain.y + (k-1)*offsetY
+			table.insert(posLayers[layerNum], {x=neuronX, y=neuronY})
 
 			ui.brain.width = neuronX-ui.brain.x
 			if ui.brain.height < neuronY-ui.brain.y then
 				ui.brain.height = neuronY-ui.brain.y
+			end
+		end
+		--Get most neurons in a layer (for symmetrical brain)
+		if symmetrical then
+			local nCount = #layer
+			if nCount > mostNeurons then mostNeurons = nCount end
+		end
+	end
+
+	--Create map of brain
+	local neurons = {}
+	local synapses = {}
+	for layerNum, layer in pairs(brain.layers) do
+		--Symmetrical layer information
+		local symLayer
+		local numNeurons
+		if symmetrical then
+			numNeurons = #layer
+			if numNeurons ~= mostNeurons then
+				symLayer = true
+			end
+		end
+
+		--Get neurons
+		for k, neuron in pairs(layer) do
+			local neuronX = posLayers[layerNum][k].x
+			local neuronY = posLayers[layerNum][k].y
+
+			--Symmetry
+			if symLayer then
+				local add = ((numNeurons*.5)-.5)*offsetY
+				neuronY = ui.brain.y + ui.brain.height/2 - (numNeurons-k)*offsetY + add
 			end
 
 			local dn = {}
@@ -122,7 +157,9 @@ function ui.brain.draw(brain)
 		love.graphics.setColor(0,0,0)
 		love.graphics.circle("line", neuron.x, neuron.y, radius)
 		--Neuron Info
-		love.graphics.setColor(conf.ui.brain.info.color)
-		love.graphics.print(round(neuron.val,2), neuron.x-9, neuron.y-5, 0, .9)
+		if conf.ui.brain.info.draw then
+			love.graphics.setColor(conf.ui.brain.info.color)
+			love.graphics.print(round(neuron.val,2), neuron.x-9, neuron.y-5, 0, .9)
+		end
 	end
 end

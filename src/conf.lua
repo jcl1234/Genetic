@@ -24,7 +24,7 @@ conf = {
 		energy = {
 			max = 1000,
 			start = 500,
-			loss = 0.05,
+			loss = 0.1,
 		},
 
 		boost = {
@@ -40,7 +40,7 @@ conf = {
 		},
 
 		birth = {
-			amount = 4,
+			amount = 2,
 			offset = 20,
 		},
 	},
@@ -63,7 +63,7 @@ conf = {
 
 	brain = {
 		layout = {
-			layers = {4, 4, 2},
+			layers = {4, 3, 2},
 			afHidden = "sig",
 			afOutput = "tanh",
 		},
@@ -85,6 +85,7 @@ conf = {
 		brain = {
 			x = 690,
 			y = 30,
+			symmetrical = true,
 			background = {
 				color = {.5,.5,.5, .3},
 				offset = 20,
@@ -93,8 +94,8 @@ conf = {
 
 			neuron = {
 				width = 10,
-				posColor = {.5,.5,.2},
-				negColor = {.2,.5,.5},
+				posColor = {1,1,1},
+				negColor = {1,0,0},
 			},
 
 			synapse = {
@@ -104,7 +105,8 @@ conf = {
 			},
 
 			info = {
-				color = {1,1,1}
+				color = {1,1,1},
+				draw = false,
 			},
 		},
 	},
