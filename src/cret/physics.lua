@@ -37,17 +37,6 @@ local function move(cret, dt)
 
 	--Change angle from output
 	local newAng = cret.angle - output.angle(cret)
-	-- local oldAng = cret.angle
-	-- local dif = 0
-	-- --Negative to positive
-	-- if newAng < -math.pi then
-	-- 	dif = newAng - oldAng
-	-- 	newAng = math.pi + dif
-	-- --Positive to negative
-	-- elseif newAng > math.pi then
-	-- 	dif = newAng - oldAng
-	-- 	newAng = -math.pi + dif
-	-- end
 
 	cret.angle = newAng
 end

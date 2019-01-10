@@ -89,5 +89,4 @@ local Sub = class(superClass, {
 
 local sub1 = Sub:new(10)
 sub1:printVal()
-
 ]]
