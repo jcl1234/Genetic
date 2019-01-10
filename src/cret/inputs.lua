@@ -37,9 +37,9 @@ end
 
 function inputs.get(cret)
 	local inputTable = {}
-	inputTable[conf.brain.inputs.foodSpawned] = inputs.foodSpawned(cret)
-	inputTable[conf.brain.inputs.foodAngle] = inputs.foodAngle(cret)
-	inputTable[conf.brain.inputs.foodDistance] = inputs.foodDistance(cret)
-	inputTable[conf.brain.inputs.energy] = inputs.energy(cret)
+	inputTable[conf.brain.inputs.fs] = inputs.foodSpawned(cret)
+	inputTable[conf.brain.inputs.fa] = inputs.foodAngle(cret)
+	inputTable[conf.brain.inputs.fd] = inputs.foodDistance(cret)
+	inputTable[conf.brain.inputs.en] = inputs.energy(cret)
 	return inputTable
 end

@@ -16,10 +16,12 @@ end
 
 --Draw brain
 function ui.brain.init(brain, x, y)
+	local numLayers = #brain.layers
+	local offset = conf.ui.brain.background.offset
 	local offsetX = 40
 	local offsetY = 30
-	ui.brain.x = x or conf.ui.brain.x
-	ui.brain.y = y or conf.ui.brain.y
+	ui.brain.x = (x or conf.ui.brain.x) + offset/2
+	ui.brain.y = (y or conf.ui.brain.y) + offset/2
 
 	ui.brain.width = 0
 	ui.brain.height = 0
@@ -54,12 +56,9 @@ function ui.brain.init(brain, x, y)
 	for layerNum, layer in pairs(brain.layers) do
 		--Symmetrical layer information
 		local symLayer
-		local numNeurons
-		if symmetrical then
-			numNeurons = #layer
-			if numNeurons ~= mostNeurons then
-				symLayer = true
-			end
+		local numNeurons = #layer
+		if symmetrical and numNeurons ~= mostNeurons then
+			symLayer = true
 		end
 
 		--Get neurons
@@ -78,6 +77,17 @@ function ui.brain.init(brain, x, y)
 			dn.x = neuronX
 			dn.y = neuronY
 			dn.val = neuron.val
+			--Neuron names for input and output neurons
+			if layerNum == 1 then
+				dn.name = byVal(conf.brain.inputs, k)
+			elseif layerNum == numLayers then
+				dn.output = true
+				dn.name = byVal(conf.brain.outputs, k)
+			end
+			--Neuron name for bias neuron
+			if brain.bias and k == numNeurons and layerNum ~= numLayers then
+				dn.name = conf.ui.brain.info.name.biasName
+			end
 			table.insert(neurons, dn)
 
 			--Create drawable synapses from output synapses
@@ -122,7 +132,7 @@ function ui.brain.draw(brain)
 
 	local radius = conf.ui.brain.neuron.width
 	--Draw background
-	if brain.drawBackground then
+	if ui.brain.drawBackground then
 		love.graphics.setColor(conf.ui.brain.background.color)
 		love.graphics.rectangle("fill", ui.brain.x-ui.brain.offset, ui.brain.y-ui.brain.offset, ui.brain.width+ui.brain.offset*2, ui.brain.height+ui.brain.offset*2)
 	end
@@ -160,6 +170,15 @@ function ui.brain.draw(brain)
 		if conf.ui.brain.info.draw then
 			love.graphics.setColor(conf.ui.brain.info.color)
 			love.graphics.print(round(neuron.val,2), neuron.x-9, neuron.y-5, 0, .9)
+		end
+		--Neuron names
+		if conf.ui.brain.info.name.draw and neuron.name then
+			local xOff = conf.ui.brain.info.name.inputOffset
+			if neuron.output then xOff = -conf.ui.brain.info.name.outputOffset/2 end
+			local yOff = conf.ui.brain.info.name.yOffset
+			local scale = conf.ui.brain.info.name.scale
+			love.graphics.setColor(conf.ui.brain.info.name.color)
+			love.graphics.print(string.upper(neuron.name), neuron.x-xOff, neuron.y-yOff, 0, scale)
 		end
 	end
 end

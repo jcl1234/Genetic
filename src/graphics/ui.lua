@@ -5,14 +5,14 @@ ui.mouse = {}
 function ui.drawInfo()
 	local x = 10
 	local y = 10
-	local width = 160
+	local width = 205
 	local height = 85
 
-	love.graphics.setColor(.2,.2,.2,.5)
-	love.graphics.rectangle("fill", x, y, width, height)
+	-- love.graphics.setColor(.2,.2,.2,.5)
+	-- love.graphics.rectangle("fill", x, y, width, height)
 
 	--Info
-	love.graphics.setColor(1,1,1)
+	love.graphics.setColor(conf.ui.info.color)
 
 	local infoX = x+10
 	local infoY = y+5
@@ -35,7 +35,7 @@ function ui.drawCretInfo(cret)
 	local heightExtra = 50
 
 	local height = 210
-	local xOffset = 300
+	local xOffset = 350
 	local yOffset = 10
 	local x = conf.window.width - xOffset
 	local y = yOffset
@@ -54,33 +54,35 @@ function ui.drawCretInfo(cret)
 	local bInfoX = brain.x-brain.offset+10
 	local bInfoY = brain.y+brain.height+brain.offset+5
 
-	local infoX = brain.x+brain.width+brain.offset + 10
+	local infoX = brain.x+brain.width+brain.offset + 20
 	local infoY = y+10
+
+	local scale = conf.ui.cretInfo.scale
 	--Status
 	love.graphics.setColor(0,1,0)
 	local status = "Alive"
 	if not cret.alive then status = "Dead"; love.graphics.setColor(1,0,0) end
-	love.graphics.print("Status: "..status, infoX, infoY)
+	love.graphics.print("Status: "..status, infoX, infoY, 0, scale)
 	--Energy
 	love.graphics.setColor(1,1,1)
-	love.graphics.print("Energy: "..round(cret.energy, 0), infoX, infoY + infoOffset*1)
+	love.graphics.print("Energy: "..round(cret.energy, 0), infoX, infoY + infoOffset*1, 0, scale)
 	--Boosting
-	love.graphics.print("Boosting: "..tostring(cret.boosting), infoX, infoY+infoOffset*2)
+	love.graphics.print("Boosting: "..tostring(cret.boosting), infoX, infoY+infoOffset*2, 0, scale)
 	--Stats
 	love.graphics.setColor(.6,.6,.8)
-	love.graphics.print("Food Eaten: "..cret.foodEaten, infoX, infoY + infoOffset*3)
-	love.graphics.print("Children Birthed: "..cret.childrenBirthed, infoX, infoY + infoOffset*4)
-	love.graphics.print("Children Alive: "..#cret.childrenAlive, infoX, infoY + infoOffset*5)
-	love.graphics.print("Generation: "..cret.generation, infoX, infoY + infoOffset*6)
+	love.graphics.print("Food Eaten: "..cret.foodEaten, infoX, infoY + infoOffset*3, 0, scale)
+	love.graphics.print("Children Birthed: "..cret.childrenBirthed, infoX, infoY + infoOffset*4, 0, scale)
+	love.graphics.print("Children Alive: "..#cret.childrenAlive, infoX, infoY + infoOffset*5, 0, scale)
+	love.graphics.print("Generation: "..cret.generation, infoX, infoY + infoOffset*6, 0, scale)
 	--Bottom Info
 	love.graphics.setColor(.4,.8,.7)
 	local descendantsAlive = #cret.descendantsAlive
 	local addval = 1
 	if not cret.alive then addval = 0 end
-	love.graphics.print("Descendants Alive: "..descendantsAlive.." ("..round((descendantsAlive+addval)/game.pop*100, 0).."%)", bInfoX, bInfoY + infoOffset*0 )
-	love.graphics.print("Descendants Total: "..cret.descendants, bInfoX, bInfoY + infoOffset*1)
+	love.graphics.print("Descendants Alive: "..descendantsAlive.." ("..round((descendantsAlive+addval)/game.pop*100, 0).."%)", bInfoX, bInfoY + infoOffset*0 , 0, scale)
+	love.graphics.print("Descendants Total: "..cret.descendants, bInfoX, bInfoY + infoOffset*1, 0, scale)
 	--Cret Image
-	local xAdd = 210
+	local xAdd = 280
 	local yAdd = 10
 	local width = 1.5
 	local x, y = bInfoX+xAdd, bInfoY + yAdd

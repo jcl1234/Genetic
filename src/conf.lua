@@ -69,26 +69,33 @@ conf = {
 		},
 
 		inputs = {
-			foodSpawned = 1,
-			foodAngle = 2,
-			foodDistance = 3,
-			energy = 4,
+			fs = 1, --food spawned
+			fa = 2, --food angle
+			fd = 3, --food Distance
+			en = 4, --cret energy
 		},
 
 		outputs = {
-			angle = 1,
-			boost = 2,
+			an = 1, --Angle
+			bs = 2, --Boost
 		},
 	},
 
 	ui = {
+		info = {
+			color = {.8,.8,.8,.7},
+		},
+
+		cretInfo = {
+			scale = 1
+		},
 		brain = {
 			x = 690,
 			y = 30,
 			symmetrical = true,
 			background = {
 				color = {.5,.5,.5, .3},
-				offset = 20,
+				offset = 30,
 				draw = false,
 			},
 
@@ -105,8 +112,19 @@ conf = {
 			},
 
 			info = {
-				color = {1,1,1},
-				draw = false,
+				--Neuron values
+				color = {.7,.7,.3},
+				draw = true,
+				--Neuron names
+				name = {
+					scale = 1,
+					inputOffset = 25,
+					outputOffset = 25,
+					yOffset = -6,
+					color = {.7,.7,.7},
+					draw = true,
+					biasName = "cs"
+				},
 			},
 		},
 	},
