@@ -54,3 +54,7 @@ function byVal(t, val)
 		if v == val then return k end
 	end
 end
+
+function randVal(t)
+	return t[math.random(#t)]
+end

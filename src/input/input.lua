@@ -45,10 +45,21 @@ function input.keypressed(key)
 			Food.ticks = inf
 		end
 	end
+	--Toggle autoselect
+	if key == binds.autoSelect then
+		game.autoSelect = toggle(game.autoSelect)
+	end
+
 	--Run a tick
 	if key == binds.tick then
 		game.doTick()
 	end
+end
+
+--Autoselect crets
+function input.autoSelect(crets)
+	if not game.autoSelect or (input.selected and input.selected.alive) then return end
+	input.select(randVal(crets))
 end
 
 function input.select(sel)
@@ -69,6 +80,8 @@ function input.mousepressed(x, y, button)
 			end
 		end
 		input.select(selected)
+		--Exit autoselect
+		if game.autoSelect then game.autoSelect = toggle(game.autoSelect) end
 	elseif button == 2 then
 		for k, food in pairs(Food.foods) do
 			food:remove()

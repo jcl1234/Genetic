@@ -8,6 +8,7 @@ game = {
 	starve = false,
 	respawn = true,
 	swarm = false,
+	autoSelect = false,
 
 	--Stats
 	pop = 0,

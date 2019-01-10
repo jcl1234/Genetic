@@ -6,4 +6,5 @@ binds = {
 	selectParent = "e",
 	swarm = "s",
 	tick = "n",
+	autoSelect = "a",
 }

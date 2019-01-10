@@ -198,6 +198,9 @@ Cret = class({
 		end
 
 		game.pop = #Cret.crets
+
+		--Auto Select
+		input.autoSelect(cls.crets)
 	end,
 
 	--Draw all crets
