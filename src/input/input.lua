@@ -24,11 +24,13 @@ function input.keypressed(key)
 	end
 	--Last selected
 	if key == binds.lastSelected then
+		if game.autoSelect then game.autoSelect = toggle(game.autoSelect) end
 		input.select(input.lastSelected)
 	end
 	--Select parent
 	if key == binds.selectParent then
 		if input.selected and input.selected.parent then
+			if game.autoSelect then game.autoSelect = toggle(game.autoSelect) end
 			input.select(input.selected.parent)
 		end
 	end

@@ -211,19 +211,19 @@ Brain = class({
 		if inputs then self:setInputs(inputs) end
 		local outputs = {}
 		for k, layer in pairs(self.layers) do
-			if k ~= #self.layers then
-				if k ~= 1 then
-				--Run calculations on each layer below output
+			if k ~= 1 then
+				if k ~= #self.layers then
+					--Run calculations on each layer below output
 					for k, neuron in pairs(layer) do
 						if not neuron.bias then
-							neuron:calcVal()
+							neuron:calcVal(false)
 						end
 					end
-				end
-			else
-				--Run calculations on output neuron synapses without running on all layers
-				for k, neuron in pairs(layer) do
-					table.insert(outputs, neuron:calcVal(false))
+				else
+					--Run calculations on output neurons
+					for k, neuron in pairs(layer) do
+						table.insert(outputs, neuron:calcVal(false))
+					end	
 				end
 			end
 		end

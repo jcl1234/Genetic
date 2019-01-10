@@ -37,7 +37,7 @@ function ui.drawCretInfo(cret)
 	local heightExtra = 50
 
 	local height = 210
-	local xOffset = 300
+	local xOffset = 180 + #conf.brain.layout.layers*conf.ui.brain.offsetX
 	local yOffset = 10
 	local x = conf.window.width - xOffset
 	local y = yOffset
@@ -46,8 +46,10 @@ function ui.drawCretInfo(cret)
 	--Base width and height off of brain
 	height = brain.height+brain.offset*2+heightExtra
 	--Background
-	love.graphics.setColor(.3,.3,.3,.7)
-	love.graphics.rectangle("fill", x, y, conf.window.width, height)
+	if conf.ui.cretInfo.background then
+		love.graphics.setColor(.3,.3,.3,.7)
+		love.graphics.rectangle("fill", x, y, conf.window.width, height)
+	end
 	--Draw brain
 	ui.brain.draw()
 

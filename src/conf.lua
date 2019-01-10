@@ -47,7 +47,7 @@ conf = {
 
 	mutate = {
 		rate = .4,
-		range = 1,
+		range = .5,
 		color = {
 			range = .05,
 			min = .4,
@@ -63,8 +63,8 @@ conf = {
 
 	brain = {
 		layout = {
-			layers = {4, 5, 2},
-			afHidden = "sig",
+			layers = {4, 10, 7, 5, 2},
+			afHidden = "unst",--"sig",
 			afOutput = "tanh",
 		},
 
@@ -88,22 +88,25 @@ conf = {
 		},
 
 		cretInfo = {
-			scale = 1
+			background = false,
+			scale = 1,
 		},
 		brain = {
 			x = 690,
 			y = 30,
+			offsetX = 50,
+			offsetY = 15,
 			symmetrical = true,
 			background = {
 				color = {.5,.5,.5, .3},
-				offset = 30,
+				offset = 2,
 				draw = false,
 			},
 
 			neuron = {
-				width = 10,
+				width = 5,
 				posColor = {1,1,1},
-				negColor = {1,0,0},
+				negColor = {.8,.8,.4},
 			},
 
 			synapse = {
@@ -125,7 +128,7 @@ conf = {
 					outputOffset = 25,
 					yOffset = -6,
 					color = {.7,.7,.7},
-					draw = true,
+					draw = false,
 					biasName = "cs"
 				},
 			},

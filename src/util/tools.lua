@@ -56,5 +56,6 @@ function byVal(t, val)
 end
 
 function randVal(t)
+	if not t then return end
 	return t[math.random(#t)]
 end

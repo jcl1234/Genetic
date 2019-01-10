@@ -18,8 +18,8 @@ end
 function ui.brain.init(brain, x, y)
 	local numLayers = #brain.layers
 	local offset = conf.ui.brain.background.offset
-	local offsetX = 40
-	local offsetY = 30
+	local offsetX = conf.ui.brain.offsetX
+	local offsetY = conf.ui.brain.offsetY
 	ui.brain.x = (x or conf.ui.brain.x) + offset/2
 	ui.brain.y = (y or conf.ui.brain.y) + offset/2
 
@@ -100,7 +100,7 @@ function ui.brain.init(brain, x, y)
 				ds.active = true
 				ds.weight = synapse.weight
 
-				--Hide if input is zero
+				--Hide if input is zero/range
 				if conf.ui.brain.synapse.onlyDrawActive then
 					local range = conf.ui.brain.synapse.activeRange
 					if synapse.input.val >= -range and synapse.input.val <= range then

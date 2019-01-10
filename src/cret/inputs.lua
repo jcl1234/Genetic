@@ -10,7 +10,7 @@ function inputs.foodSpawned(cret)
 end
 
 --Returns angle from cret to food source, normalizes to 3.14 = 0.5
-local noFood = 0
+local noFood = -1
 function inputs.foodAngle(cret)
 	local foodAng = nil
 	for k, food in pairs(Food.foods) do
