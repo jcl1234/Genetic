@@ -46,7 +46,7 @@ conf = {
 	},
 
 	mutate = {
-		rate = .2,
+		rate = .4,
 		range = 1,
 		color = {
 			range = .05,
@@ -63,7 +63,7 @@ conf = {
 
 	brain = {
 		layout = {
-			layers = {4, 3, 2},
+			layers = {4, 5, 2},
 			afHidden = "sig",
 			afOutput = "tanh",
 		},
@@ -83,7 +83,8 @@ conf = {
 
 	ui = {
 		info = {
-			color = {.8,.8,.8,.7},
+			background = true,
+			color = {1,1,1,1},
 		},
 
 		cretInfo = {
@@ -106,15 +107,17 @@ conf = {
 			},
 
 			synapse = {
-				posColor = {0,1,0},
-				negColor = {1,0,0},
+				posColor = {0,0,0},
+				negColor = {1,1,1},
+				onlyDrawActive = true,
+				activeRange = 0,
 				range = 3,
 			},
 
 			info = {
 				--Neuron values
 				color = {.7,.7,.3},
-				draw = true,
+				draw = false,
 				--Neuron names
 				name = {
 					scale = 1,

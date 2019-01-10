@@ -97,7 +97,16 @@ function ui.brain.init(brain, x, y)
 				ds.output = synapse.output
 				ds.x1 = neuronX
 				ds.y1 = neuronY
+				ds.active = true
 				ds.weight = synapse.weight
+
+				--Hide if input is zero
+				if conf.ui.brain.synapse.onlyDrawActive then
+					local range = conf.ui.brain.synapse.activeRange
+					if synapse.input.val >= -range and synapse.input.val <= range then
+						ds.active = false
+					end
+				end
 
 				table.insert(synapses, ds)
 			end
@@ -138,18 +147,20 @@ function ui.brain.draw(brain)
 	end
 	--Draw synapses
 	for k, synapse in pairs(synapses) do
-		local drawColor = conf.ui.brain.synapse.posColor
-		local weight = synapse.weight
-		--Inverse if negative
-		if synapse.weight < 0 then
-			drawColor = conf.ui.brain.synapse.negColor
-			weight = weight*-1
+		if synapse.active then
+			local drawColor = conf.ui.brain.synapse.posColor
+			local weight = synapse.weight
+			--Inverse if negative
+			if synapse.weight < 0 then
+				drawColor = conf.ui.brain.synapse.negColor
+				weight = weight*-1
+			end
+			--Shade based on weight strength
+			local drawColor = {unpack(drawColor)}
+			drawColor[4] = weight/conf.ui.brain.synapse.range
+			love.graphics.setColor(drawColor)
+			love.graphics.line(synapse.x1, synapse.y1, synapse.x2, synapse.y2)
 		end
-		--Shade based on weight strength
-		local drawColor = {unpack(drawColor)}
-		drawColor[4] = weight/conf.ui.brain.synapse.range
-		love.graphics.setColor(drawColor)
-		love.graphics.line(synapse.x1, synapse.y1, synapse.x2, synapse.y2)
 	end
 	--Draw neurons
 	for k, neuron in pairs(neurons) do
