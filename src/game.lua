@@ -9,6 +9,7 @@ game = {
 	respawn = true,
 	swarm = false,
 	autoSelect = false,
+	drawEyes = true,
 
 	--Stats
 	pop = 0,

@@ -51,6 +51,10 @@ function input.keypressed(key)
 	if key == binds.autoSelect then
 		game.autoSelect = toggle(game.autoSelect)
 	end
+	--Toggle drawing of eye
+	if key == binds.drawEyes then
+		game.drawEyes = toggle(game.drawEyes)
+	end
 
 	--Run a tick
 	if key == binds.tick then

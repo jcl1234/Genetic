@@ -11,7 +11,12 @@ require("brain")
 require("cret")
 
 function love.load()
-	love.window.setMode(conf.window.width, conf.window.height)
+	if conf.window.fullScreen then
+		love.window.setMode(0,0)
+		conf.window.width, conf.window.height = love.graphics.getDimensions()
+	else
+		love.window.setMode(conf.window.width, conf.window.height)
+	end
 	love.window.setTitle("Cret World")
 end
 

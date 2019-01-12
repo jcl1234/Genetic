@@ -34,10 +34,11 @@ end
 --Crete info panel
 function ui.drawCretInfo(cret)
 	--Amount of overhang from brain drawing
-	local heightExtra = 50
+	local heightExtra =70
 
 	local height = 210
-	local xOffset = 180 + #conf.brain.layout.layers*conf.ui.brain.offsetX
+
+	local xOffset = 250 + #conf.brain.layout.layers*conf.ui.brain.offsetX
 	local yOffset = 10
 	local x = conf.window.width - xOffset
 	local y = yOffset
@@ -46,8 +47,8 @@ function ui.drawCretInfo(cret)
 	--Base width and height off of brain
 	height = brain.height+brain.offset*2+heightExtra
 	--Background
-	if conf.ui.cretInfo.background then
-		love.graphics.setColor(.3,.3,.3,.7)
+	if conf.ui.cretInfo.background.draw then
+		love.graphics.setColor(conf.ui.cretInfo.background.color)
 		love.graphics.rectangle("fill", x, y, conf.window.width, height)
 	end
 	--Draw brain
@@ -58,7 +59,9 @@ function ui.drawCretInfo(cret)
 	local bInfoX = brain.x-brain.offset+10
 	local bInfoY = brain.y+brain.height+brain.offset+5
 
-	local infoX = brain.x+brain.width+brain.offset + 20
+	--Infomin is the lowest x the cretinfo is allowed to draw at, this is to prevent the info from overlapping with bottom info
+	local infoMin = 180
+	local infoX = math.max(brain.x+brain.width+brain.offset, brain.x + infoMin)
 	local infoY = y+10
 
 	local scale = conf.ui.cretInfo.scale
@@ -86,12 +89,12 @@ function ui.drawCretInfo(cret)
 	love.graphics.print("Descendants Alive: "..descendantsAlive.." ("..round((descendantsAlive+addval)/game.pop*100, 0).."%)", bInfoX, bInfoY + infoOffset*0 , 0, scale)
 	love.graphics.print("Descendants Total: "..cret.descendants, bInfoX, bInfoY + infoOffset*1, 0, scale)
 	--Cret Image
-	local xAdd = 240
+	local xAdd = 340
 	local yAdd = 10
 	local width = 1.5
 	local x, y = bInfoX+xAdd, bInfoY + yAdd
 	local bgWidth = width*30
 	love.graphics.setColor(1,1,1,.1)
 	love.graphics.rectangle("fill", x-bgWidth/2, y-bgWidth/2, bgWidth, bgWidth)
-	graphics.drawCret(cret, x, y, width*cret.width)
+	graphics.drawCret(cret, x, y, width*cret.width, false)
 end

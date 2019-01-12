@@ -9,9 +9,9 @@ end
 
 --Sig num, returns the sign of x, and 0 if 0
 function af.sign(x)
-	if x > 0 then return -1
-	elseif x == 0 then return 0
-	elseif x > 0 then return 1 end
+	if x < 0 then return -1
+	elseif x == 0 then return 0 end
+	return 1
 end
 
 --Linear
@@ -68,13 +68,33 @@ local Synapse = class({
 
 --Neuron--------------------------------------
 local Neuron = class({
-	init = function(self, brain, layer, bias)
+	init = function(self, brain, layer, bias, num)
 		self.brain = brain
 		self.layer = layer
 		self.ins = {}
 		self.outs = {}
 
 		self.bias = bias
+
+		--Activation function
+		self.af = nil
+		local layers = #self.brain.brainInf.layers
+		if self.layer == layers then
+			self.af = self.brain.afOutput
+		elseif self.layer ~= 1 then
+			self.af = self.brain.afHidden
+		end
+
+		if self.brain.afSpecial then
+			for k, t in pairs(self.brain.afSpecial) do
+				local str = t[1]
+				local af = t[2]
+				local split = splitStr(str, ":")
+				if tonumber(split[1]) == layer and tonumber(split[2]) == num then
+					self.af =af
+				end
+			end
+		end
 
 		--Storage
 		self.val = 0
@@ -93,13 +113,9 @@ local Neuron = class({
 				sumVals = sumVals + synapse:calcVal(chain)
 			end
 
-			if self.layer == #self.brain.layers then
-				self.val = self.brain.af[self.brain.afOutput](sumVals)
-			else
-				self.val = self.brain.af[self.brain.afHidden](sumVals)
-			end
-
-			return self.val
+			local val = self.brain.af[self.af](sumVals)
+			self.val = val
+			return val
 		else
 			--Input or bias(both have no input synapses)
 			return self.val
@@ -122,6 +138,7 @@ local Neuron = class({
 	brain.weightRange = 3(default)
 	brain.afHidden = "sig"(default)
 	brain.afOutput = "tanh" (default)
+	brain.afSpecial = {"3:1" = "unst"}(set layer 3 neuron 1 as unit step)
 ]]
 
 --Brain---------------------------------------
@@ -137,11 +154,15 @@ Brain = class({
 		self.afHidden = "sig"
 		self.afOutput = "tanh"
 
+		self.brainInf = nil
+
 		--Set up brain
 		if brainInf then
+			self.brainInf = brainInf
 			if brainInf.bias == false then self.bias = false end
 			if brainInf.afHidden then self.afHidden = brainInf.afHidden end
 			if brainInf.afOutput then self.afOutput = brainInf.afOutput end
+			self.afSpecial = brainInf.afSpecial
 			self:setup(brainInf)
 		end
 	end,
@@ -159,7 +180,7 @@ Brain = class({
 			self.layers[k] = {}
 			--Add neuron
 			for i=1, numNeurons do
-				Neuron:new(self, k)
+				Neuron:new(self, k, false, i)
 			end
 			--Create bias neuron
 			if self.bias and k ~= numLayers then
@@ -249,6 +270,7 @@ Brain = class({
 		inf.bias = self.bias
 		inf.afHidden = self.afHidden
 		inf.afOutput = self.afOutput
+		inf.afSpecial = self.afSpecial
 		return inf
 	end,
 

@@ -7,4 +7,5 @@ binds = {
 	swarm = "s",
 	tick = "n",
 	autoSelect = "a",
+	drawEyes = "d",
 }
