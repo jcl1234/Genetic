@@ -78,7 +78,7 @@ conf = {
 	brain = {
 		layout = {
 			layers = {3, 5, 3},
-			afSpecial = {{"4:3", "tanh"}},
+			afSpecial = {{"3:3", "tanh"}},
 			afHidden = "sig",
 			afOutput = "sig",
 		},
