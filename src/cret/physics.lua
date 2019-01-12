@@ -6,7 +6,7 @@ local function collisions(cret)
 	--Cret collision with food
 	local hitbox = conf.food.hitbox
 	for k, food in pairs(Food.foods) do
-		if cret.x >= food.x-hitbox/2 and cret.x <= food.x + food.width+hitbox and cret.y >= food.y-hitbox/2 and cret.y <= food.y + food.width+hitbox then
+		if cret.x >= (food.x-hitbox/2)-cret.width and cret.x <= (food.x + food.width+hitbox)+cret.width and cret.y >= (food.y-hitbox/2)-cret.width and cret.y <= (food.y + food.width+hitbox)+cret.width then
 			cret:eat(food)
 		end
 	end

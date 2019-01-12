@@ -14,8 +14,8 @@ conf = {
 	cret = {
 		descendants = true,
 
-		minWidth = 2,
-		width = 5,
+		minWidth = 3,
+		width = 10,
 
 		drawNose = false,
 		noseLength = 3,
