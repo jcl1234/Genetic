@@ -128,8 +128,8 @@ conf = {
 			},
 
 			synapse = {
-				posColor = {0,0,0},
-				negColor = {1,1,1},
+				posColor = {1,1,1},
+				negColor = {0,0,0},
 				onlyDrawActive = true,
 				activeRange = 0,
 				range = 3,

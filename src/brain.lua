@@ -3,8 +3,8 @@ local af = {}
 
 --Unit Step, activates to 1 at x>0, else stays at 0
 function af.unst(x)
-	if x < 0 then return 0
-	else return 1 end
+	if x > 0 then return 1 end
+	return 0
 end
 
 --Sig num, returns the sign of x, and 0 if 0
@@ -115,7 +115,7 @@ local Neuron = class({
 
 			local val = self.brain.af[self.af](sumVals)
 			self.val = val
-			return val
+			return self.val
 		else
 			--Input or bias(both have no input synapses)
 			return self.val
