@@ -26,12 +26,12 @@ conf = {
 		energy = {
 			max = 1000,
 			start = 500,
-			loss = 1,
+			loss = .5,
 		},
 
 		eye = {
 			num = 2,
-			length = 45,
+			length = 25,
 			width = 15,
 			alpha = 0.4,
 			offset = .8,
@@ -68,7 +68,7 @@ conf = {
 
 	food = {
 		bgWidth = 10,
-		number = 30,
+		number = 50,
 		width = 3,
 		color = {0,.8,0},
 		hitbox = 6,
@@ -77,9 +77,9 @@ conf = {
 
 	brain = {
 		layout = {
-			layers = {3, 6, 4, 3},
+			layers = {3, 5, 3},
 			afSpecial = {{"4:3", "tanh"}},
-			afHidden = "unst",
+			afHidden = "sig",
 			afOutput = "sig",
 		},
 
