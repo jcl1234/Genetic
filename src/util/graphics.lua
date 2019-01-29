@@ -1,4 +1,5 @@
 --Line
+line = {}
 line.orig = love.graphics.getLineWidth()
 function line.set(width)
 	love.graphics.setLineWidth(width)

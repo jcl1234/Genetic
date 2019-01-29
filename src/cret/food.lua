@@ -37,7 +37,7 @@ Food = class({
 		end
 
 		if not game.starve and not game.swarm then
-			if #cls.foods < conf.food.number then
+			if #cls.foods < 1 then
 				cls.ticks = cls.ticks + 1
 				if cls.ticks >= conf.food.spawnRate then
 					cls:spawn()

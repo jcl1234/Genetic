@@ -35,27 +35,14 @@ function graphics.drawSelectedCret(cret)
 end
 
 
-function graphics.drawCret(cret, x, y, width, eyes)
+function graphics.drawCret(cret, x, y, width)
 	x = x or cret.x
 	y = y or cret.y
 	width = width or cret.width
 
-	--Cret eye
-	if conf.cret.eye.draw and game.drawEyes and eyes then
-		local drawCol = {unpack(cret.color)}
-		drawCol[4] = conf.cret.eye.alpha
-		love.graphics.setColor(drawCol)
-		line.set(conf.cret.eye.width)
-		for k, e in pairs(cret.eyes) do
-			love.graphics.line(x, y, e.x2, e.y2)
-		end
-		line.pop()
-	end
 	--Cret nose
-	if conf.cret.drawNose or (not eyes) then
-		love.graphics.setColor(cret.color)
-		love.graphics.line(x, y, x + math.cos(cret.angle) * (width*conf.cret.noseLength), y + math.sin(cret.angle) * ((width*conf.cret.noseLength)*-1))
-	end
+	love.graphics.setColor(cret.color)
+	love.graphics.line(x, y, x + math.cos(cret.angle) * (width*conf.cret.noseLength), y + math.sin(cret.angle) * ((width*conf.cret.noseLength)*-1))
 	--Cret body
 	love.graphics.setColor(cret.color)
 	love.graphics.circle("fill", x, y, width)

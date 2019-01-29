@@ -1,7 +1,7 @@
 conf = {
 	window = {
-		width = 1800,
-		height = 900,
+		width = 1300,
+		height = 750,
 		fullScreen = false,
 		edgeless = true,
 	},
@@ -17,8 +17,7 @@ conf = {
 		minWidth = 3,
 		width = 10,
 
-		drawNose = false,
-		noseLength = 3,
+		noseLength = 2.25,
 
 		childCircleWidth = 20,
 		parentTriangleSize = 20,
@@ -26,17 +25,7 @@ conf = {
 		energy = {
 			max = 1000,
 			start = 500,
-			loss = .5,
-		},
-
-		eye = {
-			num = 2,
-			length = 25,
-			width = 15,
-			alpha = 0.4,
-			offset = .8,
-			offVal = 0,
-			draw = true,
+			loss = 0.1,
 		},
 
 		boost = {
@@ -52,14 +41,14 @@ conf = {
 		},
 
 		birth = {
-			amount = 1,
-			offset = 15,
+			amount = 2,
+			offset = 20,
 		},
 	},
 
 	mutate = {
 		rate = .4,
-		range = 1,
+		range = .5,
 		color = {
 			range = .05,
 			min = .4,
@@ -67,32 +56,29 @@ conf = {
 	},
 
 	food = {
-		bgWidth = 10,
-		number = 50,
-		width = 3,
+		width = 6,
 		color = {0,.8,0},
-		hitbox = 6,
-		spawnRate = 30,
+		hitbox = 12,
+		spawnRate = 180,
 	},
 
 	brain = {
 		layout = {
-			layers = {3, 5, 3},
-			afSpecial = {{"3:3", "tanh"}},
-			afHidden = "sig",
-			afOutput = "sig",
+			layers = {4, 5, 2},
+			afHidden = "sig",--"sig",
+			afOutput = "tanh",
 		},
 
 		inputs = {
-			e1 = 1, --eye 1 food
-			e2 = 2, --eye 2 food
-			en = 3, --cret energy
+			fs = 1, --food spawned
+			fa = 2, --food angle
+			fd = 3, --food Distance
+			en = 4, --cret energy
 		},
 
 		outputs = {
-			ar = 1, --turn right
-			al = 2, --turn left
-			bs = 3, --boost
+			an = 1, --Angle
+			bs = 2, --Boost
 		},
 	},
 
@@ -103,11 +89,11 @@ conf = {
 		},
 
 		cretInfo = {
-			scale = 1,
 			background = {
 				color = {.3,.3,.3,.2},
 				draw = true,
 			},
+			scale = 1,
 		},
 		brain = {
 			x = 690,

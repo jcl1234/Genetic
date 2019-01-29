@@ -1,18 +1,32 @@
 inputs = {}
 
---Returns if food is touching eye and how far down the eye it is
-function inputs.eye(eye)
-	for k, food in pairs(Food.foods) do
-		-- local eyeDist = lineDist(eye.x1, eye.y1, eye.x2, eye.y2, love.mouse.getX(),love.mouse.getY())
-		local eyeDist = lineDist(eye.x1, eye.y1, eye.x2, eye.y2, food.x, food.y)
-		--Distance from food to line is less than the radius of the food
-		if eyeDist <= conf.food.width + conf.cret.eye.width/2 then
-			local cretDist = dist(eye.cret.x, eye.cret.y, food.x, food.y)
-			return 1 - (cretDist/eye.length)
-			-- return 1
-		end
+--Returns whether food is spawned on the map, 0 is no and 1 is yes
+function inputs.foodSpawned(cret)
+	local spawned = 0
+	if #Food.foods >= 1 then
+		spawned = 1
 	end
-	return conf.cret.eye.offVal
+	return spawned
+end
+
+--Returns angle from cret to food source, normalizes to 3.14 = 0.5
+local noFood = -1
+function inputs.foodAngle(cret)
+	local foodAng = nil
+	for k, food in pairs(Food.foods) do
+		foodAng = mod(angle(cret.x, cret.y, food.x, food.y), math.pi*2)
+	end
+	if not foodAng then return noFood end
+	local cretAng = mod(cret.angle, math.pi*2)
+	return foodAng/cretAng
+end
+
+--Returns distance from food source, normalizes to (current distance/farthest distance), the farthest possible distance, so 800 for a screen width of 800, Returns 1(max distance) if there is no food
+function inputs.foodDistance(cret)
+	for k, food in pairs(Food.foods) do
+		return dist(cret.x, cret.y, food.x, food.y)/math.max(conf.window.width, conf.window.height)
+	end
+	return 1
 end
 
 --Returns energy of cret, normalized as (current energy/ max energy)
@@ -23,11 +37,9 @@ end
 
 function inputs.get(cret)
 	local inputTable = {}
-	--eyes
-	for k, e in pairs(cret.eyes) do
-		local inputNum = conf.brain.inputs["e"..k]
-		inputTable[inputNum] = inputs.eye(e)
-	end
+	inputTable[conf.brain.inputs.fs] = inputs.foodSpawned(cret)
+	inputTable[conf.brain.inputs.fa] = inputs.foodAngle(cret)
+	inputTable[conf.brain.inputs.fd] = inputs.foodDistance(cret)
 	inputTable[conf.brain.inputs.en] = inputs.energy(cret)
 	return inputTable
 end

@@ -1,4 +1,3 @@
-require("cret.eye")
 require("cret.food")
 require("cret.inputs")
 require("cret.outputs")

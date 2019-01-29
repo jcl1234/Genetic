@@ -31,12 +31,6 @@ Cret = class({
 		self.descendants = 0
 		self.descendantsAlive = {}
 
-		--Eye
-		self.eyes = {}
-		for i=1, conf.cret.eye.num do
-			eye.create(self)
-		end
-
 		--Brain
 		self.brain = nil
 		if parent then
@@ -195,10 +189,6 @@ Cret = class({
 		for k, cret in pairs(cls.crets) do
 			cret:tick(dt)
 			physics.tick(cret, dt)
-			--Update cret eyes
-			for k, e in pairs(cret.eyes) do
-				eye.update(e)
-			end
 		end
 
 		--Spawn if pop extinct
@@ -216,9 +206,7 @@ Cret = class({
 	--Draw all crets
 	draw = function(cls)
 		for k, cret in pairs(cls.crets) do
-			local eyes = false
-			if input.selected == cret then eyes = true end
-			graphics.drawCret(cret, nil, nil, nil, eyes)
+			graphics.drawCret(cret)
 		end
 	end,
 
