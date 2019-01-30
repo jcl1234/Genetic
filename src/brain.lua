@@ -36,7 +36,7 @@ local function randFloat(low, high)
 end
 
 --Synapse-------------------------------------
-local Synapse = class({
+local Synapse = class {
 	init = function(self, neurIn, neurOut)
 		self.input = neurIn
 		self.output = neurOut
@@ -64,10 +64,10 @@ local Synapse = class({
 		end
 		return outVal
 	end,
-	})
+	}
 
 --Neuron--------------------------------------
-local Neuron = class({
+local Neuron = class {
 	init = function(self, brain, layer, bias)
 		self.brain = brain
 		self.layer = layer
@@ -105,7 +105,7 @@ local Neuron = class({
 			return self.val
 		end
 	end,
-	})
+	}
 
 --[[
 	--Pre defined brain
@@ -125,7 +125,7 @@ local Neuron = class({
 ]]
 
 --Brain---------------------------------------
-Brain = class({
+Brain = class {
 	af = af,
 	init = function(self, brainInf)
 		self.layers = {}
@@ -251,14 +251,4 @@ Brain = class({
 		inf.afOutput = self.afOutput
 		return inf
 	end,
-
-
-	--Remove brain from memory
-	remove = function(self)
-		for k, v in pairs(self.brains) do
-			if v == self then
-				table.remove(self.brains, k)
-			end
-		end
-	end,
-	})
+	}
