@@ -67,7 +67,7 @@ local Synapse = class({
 	})
 
 --Neuron--------------------------------------
-local Neuron = class({
+local Neuron = class {
 	init = function(self, brain, layer, bias, num)
 		self.brain = brain
 		self.layer = layer
@@ -121,7 +121,7 @@ local Neuron = class({
 			return self.val
 		end
 	end,
-	})
+	}
 
 --[[
 	--Pre defined brain
@@ -142,7 +142,7 @@ local Neuron = class({
 ]]
 
 --Brain---------------------------------------
-Brain = class({
+Brain = class {
 	af = af,
 	init = function(self, brainInf)
 		self.layers = {}
@@ -273,14 +273,4 @@ Brain = class({
 		inf.afSpecial = self.afSpecial
 		return inf
 	end,
-
-
-	--Remove brain from memory
-	remove = function(self)
-		for k, v in pairs(self.brains) do
-			if v == self then
-				table.remove(self.brains, k)
-			end
-		end
-	end,
-	})
+	}
