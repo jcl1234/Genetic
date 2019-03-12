@@ -3,7 +3,7 @@ local af = {}
 
 --Unit Step, activates to 1 at x>0, else stays at 0
 function af.unst(x)
-	if x < 0 then return 0
+	if x <= 0 then return 0
 	else return 1 end
 end
 

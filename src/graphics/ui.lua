@@ -34,7 +34,7 @@ end
 --Crete info panel
 function ui.drawCretInfo(cret)
 	--Amount of overhang from brain drawing
-	local heightExtra =70
+	local heightExtra =90
 
 	local height = 210
 
